@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,48 +6,34 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {IParticipant, productionPrice} from "../../types";
-import {PostService} from "../../api/PostService";
+import {productionPrice} from "../../types";
 import {createTableData} from "../../utils";
 import {tableHeaders} from "../../constants";
+import {observer} from "mobx-react-lite";
+import store from "../../store/store";
 import './table.css';
 
 const BasicTable: React.FC = () => {
-  const [participants, setParticipants] = useState<IParticipant[]>([]);
-
-  useEffect(() => {
-    const getParticipants = async () => {
-      try {
-        const response = await PostService.getParticipants();
-        setParticipants(response.data);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    getParticipants();
-  }, []);
-
   const rows = [
     createTableData(tableHeaders.complexEvents,
       'isContainsComplexEvents',
-      participants
+      store.participants
     ),
     createTableData(tableHeaders.productionTime,
       'productionTimeInDays',
-      participants
+      store.participants
     ),
     createTableData(tableHeaders.warranty,
       'warrantyObligationsInMonths',
-      participants
+      store.participants
     ),
     createTableData(tableHeaders.termsOfPayment,
       'termsOfPaymentInPercents',
-      participants
+      store.participants
     ),
     createTableData(tableHeaders.productionPrice,
       'productionPriceInRubles',
-      participants
+      store.participants
     )
   ];
 
@@ -57,8 +43,15 @@ const BasicTable: React.FC = () => {
         <TableHead>
           <TableRow>
             <TableCell>ПАРАМЕТРЫ И ТРЕБОВАНИЯ</TableCell>
-            {participants.map(participant => (
-              <TableCell key={participant.key} align="right">УЧАСТНИК №{participant.key}</TableCell>
+            {store.participants.map(participant => (
+              <TableCell key={participant.key} align="right">
+                <div className={store.currentTurnParticipant.key === participant.key
+                  ? 'th-wrapper active'
+                  : 'th-wrapper'}>
+                  <span>УЧАСТНИК №{participant.key}</span>
+                  <span>{store.currentTurnParticipant.key === participant.key && 'Ваш ход!'}</span>
+                </div>
+              </TableCell>
             ))}
           </TableRow>
         </TableHead>
@@ -105,4 +98,4 @@ const BasicTable: React.FC = () => {
   );
 };
 
-export default BasicTable;
+export default observer(BasicTable);

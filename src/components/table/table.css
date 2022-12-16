@@ -38,6 +38,17 @@
   font-size: 16px;
 }
 
+.th-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.th-wrapper.active {
+  color: indianred;
+  font-size: 18px;
+  font-weight: bold;
+}
+
 @media (max-width: 1150px) {
   .price__initial,
   .price__subtract,

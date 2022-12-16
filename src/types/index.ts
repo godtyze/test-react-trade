@@ -1,5 +1,6 @@
 export interface IParticipant {
   key: number;
+  isYourTurn: boolean;
   isContainsComplexEvents: boolean;
   productionTimeInDays: number;
   warrantyObligationsInMonths: number;

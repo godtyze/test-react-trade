@@ -1,17 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {getPaddedTime} from "../../utils";
 import './timer.css';
+import store from "../../store/store";
+import {observer} from "mobx-react-lite";
 
 const Timer: React.FC = () => {
-  const [timeLeft, setTimeLeft] = useState(120);
-
-  const hours = getPaddedTime(Math.floor(timeLeft / (60 * 60)));
-  const minutes = getPaddedTime(Math.floor(timeLeft / 60));
-  const seconds = getPaddedTime(timeLeft - (Math.floor(timeLeft / 60) * 60));
+  const hours = getPaddedTime(Math.floor(store.timeLeft / (60 * 60)));
+  const minutes = getPaddedTime(Math.floor(store.timeLeft / 60));
+  const seconds = getPaddedTime(store.timeLeft - (Math.floor(store.timeLeft / 60) * 60));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimeLeft((prevTime) => prevTime >= 1 ? prevTime - 1 : 120);
+      if (store.timeLeft >= 1) {
+        store.decrementTime();
+      } else {
+        store.changeTurnStatus();
+        store.setTimeLeft(120);
+      }
     }, 1000);
 
     return () => clearInterval(interval);
@@ -28,4 +33,4 @@ const Timer: React.FC = () => {
   );
 };
 
-export default Timer;
+export default observer(Timer);
