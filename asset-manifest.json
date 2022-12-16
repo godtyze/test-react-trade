@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/test-react-trade/static/css/main.5908c41f.css",
-    "main.js": "/test-react-trade/static/js/main.a439078d.js",
+    "main.js": "/test-react-trade/static/js/main.ce349380.js",
     "index.html": "/test-react-trade/index.html",
     "main.5908c41f.css.map": "/test-react-trade/static/css/main.5908c41f.css.map",
-    "main.a439078d.js.map": "/test-react-trade/static/js/main.a439078d.js.map"
+    "main.ce349380.js.map": "/test-react-trade/static/js/main.ce349380.js.map"
   },
   "entrypoints": [
     "static/css/main.5908c41f.css",
-    "static/js/main.a439078d.js"
+    "static/js/main.ce349380.js"
   ]
 }
