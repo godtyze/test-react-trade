@@ -1,16 +1,15 @@
 .timer {
-  margin-left: auto;
   padding: 10px 30px 10px 30px;
   font-weight: 600;
   background-color: antiquewhite;
   border-radius: 5px;
-  color: indianred;
   font-size: 22px;
 }
 
 .timer-wrapper {
   display: flex;
   align-items: center;
+  justify-content: space-around;
 }
 
 .timer-text {

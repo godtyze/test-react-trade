@@ -3,7 +3,7 @@ import {getPaddedTime} from "../../utils";
 import './timer.css';
 
 const Timer: React.FC = () => {
-  const [timeLeft, setTimeLeft] = useState(600);
+  const [timeLeft, setTimeLeft] = useState(120);
 
   const hours = getPaddedTime(Math.floor(timeLeft / (60 * 60)));
   const minutes = getPaddedTime(Math.floor(timeLeft / 60));
@@ -11,7 +11,7 @@ const Timer: React.FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimeLeft((prevTime) => prevTime >= 1 ? prevTime - 1 : 0);
+      setTimeLeft((prevTime) => prevTime >= 1 ? prevTime - 1 : 120);
     }, 1000);
 
     return () => clearInterval(interval);
